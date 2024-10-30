@@ -18,6 +18,23 @@ spec:
     spec:
       containers:
         - name: todo-app-backend
-          image: thawthuhan/todo_app_backend
+          image: thawthuhan/todo_app_backend:v1
           ports:
             - containerPort: 5000
+          env:
+            - name: DATABASE_USERNAME
+              value: todo_user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: todo-app-secret
+                  key: DATABASE_PASSWORD 
+            - name: DATABASE_HOST
+              value: todo-app-db.todo-app-space.svc.cluster.local
+            - name: DATABASE_NAME
+              value: todo_db
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: todo-app-secret
+                  key: JWT_SECRET_KEY

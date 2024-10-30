@@ -20,11 +20,17 @@ spec:
           image: mysql:8.0-debian
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: rootsecurepassword
+              valueFrom:
+                secretKeyRef:
+                  name: todo-app-secret
+                  key: MYSQL_ROOT_PASSWORD
             - name: MYSQL_USER
               value: todo_user
             - name: MYSQL_PASSWORD
-              value: securepassword
+              valueFrom:
+                secretKeyRef:
+                  name: todo-app-secret
+                  key: DATABASE_PASSWORD
             - name: MYSQL_DATABASE
               value: todo_db
           volumeMounts:

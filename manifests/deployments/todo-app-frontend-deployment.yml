@@ -21,3 +21,6 @@ spec:
           image: thawthuhan/todo_app_frontend
           ports:
             - containerPort: 8080
+          env:
+            - name: BACKEND_URL
+              value: http://192.168.10.138:30002
