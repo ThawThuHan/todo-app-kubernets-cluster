@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-backend
+  namespace: todo-app-space
+  labels:
+    app: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      name: todo-app-backend
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: todo-app-backend
+          image: thawthuhan/todo_app_backend
+          ports:
+            - containerPort: 5000

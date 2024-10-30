@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app-frontend
+  namespace: todo-app-space
+  labels:
+    app: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      name: todo-app-frontend
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: todo-app-frontend
+          image: thawthuhan/todo_app_frontend
+          ports:
+            - containerPort: 8080

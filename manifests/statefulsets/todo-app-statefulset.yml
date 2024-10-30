@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: todo-app-statefulset
+  namespace: todo-app-space
+spec:
+  selector:
+    matchLabels:
+      app: db
+  replicas: 1
+  template:
+    metadata:
+      name: todo-db
+      namespace: todo-app-space
+      labels:
+        app: db
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0-debian
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootsecurepassword
+            - name: MYSQL_USER
+              value: todo_user
+            - name: MYSQL_PASSWORD
+              value: securepassword
+            - name: MYSQL_DATABASE
+              value: todo_db
+          volumeMounts:
+            - name: db-volume
+              mountPath: /var/lib/mysql
+          ports:
+            - name: db-port
+              containerPort: 3306
+
+      volumes:
+        - name: db-volume
+          persistentVolumeClaim:
+            claimName: todo-app-pvc
