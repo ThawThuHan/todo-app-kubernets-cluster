@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: todo-app-frontend
-          image: thawthuhan/todo_app_frontend
+          image: thawthuhan/todo_app_frontend:v1
           ports:
             - containerPort: 8080
           env:
